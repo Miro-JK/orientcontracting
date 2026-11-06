@@ -33,6 +33,13 @@ jobs:
             echo "::error::This run is for an older commit ($GITHUB_SHA). main is now at $latest. Re-run the newest workflow run instead."
             exit 1
           fi
+      # Give styles.css / script.js a per-commit version so browsers never mix a new
+      # page with an old cached stylesheet after a deploy.
+      - name: Cache-bust CSS and JS links
+        run: |
+          v="${GITHUB_SHA::7}"
+          sed -i -E "s#(href|src)=\"\./(styles\.css|script\.js)\"#\1=\"./\2?v=$v\"#g" public/*.html
+          grep -c "?v=$v" public/*.html
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:

@@ -57,11 +57,11 @@ AddDefaultCharset UTF-8
   Header always unset X-Powered-By
   Header unset X-Powered-By
 
-  # Cache images, CSS and JS for a week; always re-check HTML
-  <FilesMatch "\.(jpg|jpeg|png|webp|svg|ico|css|js|woff2?)$">
+  # Cache images for a week; always re-check HTML, CSS and JS so updates show up immediately
+  <FilesMatch "\.(jpg|jpeg|png|webp|svg|ico|woff2?)$">
     Header set Cache-Control "public, max-age=604800"
   </FilesMatch>
-  <FilesMatch "\.html$">
+  <FilesMatch "\.(html|css|js)$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
 </IfModule>
