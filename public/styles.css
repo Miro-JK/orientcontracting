@@ -155,7 +155,7 @@ p { margin: 0 0 1em; max-width: 68ch; }
 
 .proud { padding: clamp(4rem, 9vw, 7rem) 0; border-top: 1px solid rgba(0,0,0,.05); }
 .proud-title { font-size: clamp(2.6rem, 5.6vw, 4.2rem); color: var(--orange); text-transform: uppercase; margin: 0 auto .6rem; }
-.cert-row { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 900px; margin-inline: auto; }
+.cert-row { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 620px; margin-inline: auto; }
 .cert { display: flex; flex-direction: column; align-items: center; }
 .seal { width: min(200px, 100%); height: auto; filter: drop-shadow(0 10px 14px rgba(70,45,0,.28)); transition: transform .5s cubic-bezier(.2,.7,.2,1); }
 .cert:hover .seal { transform: rotate(-8deg) scale(1.04); }

@@ -24,6 +24,15 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
+      # "Re-run" rebuilds the commit the run started with. Refuse to deploy an older
+      # commit over a newer one; re-run the newest run (or push) instead.
+      - name: Only deploy the latest commit on main
+        run: |
+          latest=$(git ls-remote origin refs/heads/main | cut -f1)
+          if [ "$latest" != "$GITHUB_SHA" ]; then
+            echo "::error::This run is for an older commit ($GITHUB_SHA). main is now at $latest. Re-run the newest workflow run instead."
+            exit 1
+          fi
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
