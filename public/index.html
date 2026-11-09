@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" href="./assets/img/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Rajdhani:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./styles.css">
 </head>
 <body class="page-index">
@@ -63,41 +63,58 @@
     </div>
   </section>
 
-  <section class="intro">
-    <div class="wrap intro-inner">
-      <h2 class="intro-title">Who we are</h2>
-      <div class="intro-body">
-        <p class="intro-lead">Orient Palace Contracting &amp; Building Maintenance LLC was established in Dubai in 1997 and provides construction, civil maintenance and MEP services under one roof.</p>
-        <p>Our engineers, supervisors and technicians have delivered projects in commercial and residential buildings, apartments, hospitals, hotels, shopping malls and warehouses: building maintenance, electrical, plumbing and sanitary, ceilings and partitions, painting, flooring and tiling, air-conditioning, carpentry and MEP works.</p>
-        <p>Clients come back because we keep to high standards of workmanship and safety and meet tight deadlines. <a href="./about">More about us &rarr;</a></p>
+  <section class="chapter">
+    <div class="wrap chapter-inner">
+      <p class="kicker">Orient Palace &middot; Est. 1997</p>
+      <h2>Quality work, delivered on time</h2>
+      <p>For more than 25 years our engineers, supervisors and technicians have built and maintained commercial and residential buildings, hospitals, hotels, malls and warehouses across the UAE, with construction, civil maintenance and MEP under one roof.</p>
+      <a href="./about" class="link-line">Our story</a>
+      <span class="chapter-rule" aria-hidden="true"></span>
+    </div>
+  </section>
+
+  <section class="panels" aria-labelledby="workTitle">
+    <h2 id="workTitle" class="sr-only">Selected projects</h2>
+    <article class="panel">
+      <img src="./assets/img/prj-restoration.jpg" alt="Residential tower after concrete restoration and repainting" width="920" height="716" loading="lazy">
+      <div class="wrap panel-inner">
+        <p class="kicker">Finishing &middot; B+G+M+16+2R tower</p>
+        <h3>Concrete restoration &amp; painting</h3>
+        <p class="panel-meta">Facade repair <span aria-hidden="true">/</span> Full repaint</p>
+        <div class="panel-actions"><a href="./projects" class="link-arrow">Explore projects</a><a href="./contact#quote" class="btn btn-ghost">Request a quote</a></div>
       </div>
-    </div>
+    </article>
+    <article class="panel">
+      <img src="./assets/img/prj-cladding.jpg" alt="Ground floor of a tower with new external cladding and glazing" width="1140" height="736" loading="lazy">
+      <div class="wrap panel-inner">
+        <p class="kicker">Finishing &middot; G+M+16 tower</p>
+        <h3>External cladding</h3>
+        <p class="panel-meta">Cladding <span aria-hidden="true">/</span> Glazing <span aria-hidden="true">/</span> Shopfronts</p>
+        <div class="panel-actions"><a href="./projects" class="link-arrow">Explore projects</a><a href="./contact#quote" class="btn btn-ghost">Request a quote</a></div>
+      </div>
+    </article>
+    <article class="panel">
+      <img src="./assets/img/prj-karam.jpg" alt="Karam Fish Market entrance after refurbishment" width="920" height="716" loading="lazy">
+      <div class="wrap panel-inner">
+        <p class="kicker">Refurbishment &middot; Karam Fish Market</p>
+        <h3>External &amp; internal refurbishment</h3>
+        <p class="panel-meta">Commercial <span aria-hidden="true">/</span> Civil &amp; finishing works</p>
+        <div class="panel-actions"><a href="./projects" class="link-arrow">Explore projects</a><a href="./contact#quote" class="btn btn-ghost">Request a quote</a></div>
+      </div>
+    </article>
   </section>
 
-  <section class="showcase" aria-label="Project gallery">
-    <div class="coverflow" data-coverflow tabindex="0" aria-roledescription="carousel">
-      <ul class="cf-track">
-        <li class="cf-slide"><img src="./assets/img/prj-cladding.jpg" alt="External cladding on a G+M+16 tower" width="1140" height="736"><span>External cladding</span></li>
-        <li class="cf-slide"><img src="./assets/img/prj-restoration.jpg" alt="Concrete restoration and painting of a tower" width="920" height="716" loading="lazy"><span>Concrete restoration &amp; painting</span></li>
-        <li class="cf-slide"><img src="./assets/img/prj-karam.jpg" alt="Refurbishment of Karam Fish Market" width="920" height="716" loading="lazy"><span>Karam Fish Market refurbishment</span></li>
-        <li class="cf-slide"><img src="./assets/img/prj-retaining.jpg" alt="Construction of a retaining wall" width="920" height="716" loading="lazy"><span>Retaining wall construction</span></li>
-        <li class="cf-slide"><img src="./assets/img/prj-epoxy.jpg" alt="Floor epoxy and road marking" width="920" height="732" loading="lazy"><span>Floor epoxy &amp; road marking</span></li>
-        <li class="cf-slide"><img src="./assets/img/prj-apartments.jpg" alt="Refurbishment of 48 apartments" width="920" height="716" loading="lazy"><span>48 apartments refurbished</span></li>
-        <li class="cf-slide"><img src="./assets/img/prj-meridien.jpg" alt="Block wall at Le Méridien Hotel, Garhoud" width="924" height="732" loading="lazy"><span>Le Méridien block wall</span></li>
-        <li class="cf-slide"><img src="./assets/img/prj-roofing.jpg" alt="Replacement of damaged warehouse roofing panels" width="920" height="736" loading="lazy"><span>Warehouse roofing</span></li>
-      </ul>
-      <button class="cf-btn cf-prev" type="button" aria-label="Previous photo">&#8249;</button>
-      <button class="cf-btn cf-next" type="button" aria-label="Next photo">&#8250;</button>
-    </div>
-    <p class="cf-more"><a href="./projects">See all completed projects &rarr;</a></p>
-  </section>
-
-  <section class="advantages">
-    <div class="wrap adv-grid">
-      <div class="adv-text">
-        <p class="adv-kicker">Experience &amp; Technology</p>
-        <h2 class="adv-title">Competitive Global Advantages</h2>
-        <p class="adv-body">The company has been successful in developing business connections all over the UAE, primarily because of the excellent quality of our work, competitive prices, and the support we give our customers. We have earned a very good reputation with customers across the UAE, and we will keep working to honour our promise and accomplish our mission. We warmly welcome all clients to visit and negotiate business with us.</p>
+  <section class="split">
+    <div class="wrap split-grid">
+      <figure class="split-media"><img src="./assets/img/adv-welding.jpg" alt="Welder cutting steel with sparks flying" width="1600" height="1067" loading="lazy"></figure>
+      <div class="split-text">
+        <p class="kicker">Experience &amp; technology</p>
+        <h2>Competitive global advantages</h2>
+        <p>Quality work, competitive prices and real after-sales support have built our reputation with clients all over the UAE. We warmly welcome clients to visit us and discuss their project.</p>
+        <dl class="split-stats">
+          <div><dt>1,000+</dt><dd>Completed projects</dd></div>
+          <div><dt>100+</dt><dd>Official partners</dd></div>
+        </dl>
         <ul class="svc-links" aria-label="Main services">
           <li><a href="./services#building">Building contracting</a></li>
           <li><a href="./services#masonry">Masonry</a></li>
@@ -106,22 +123,15 @@
           <li><a href="./services#electrical">Electrical</a></li>
           <li><a href="./services#painting">Painting &amp; polishing</a></li>
         </ul>
-        <p class="svc-links-more"><a href="./services">All 11 services &rarr;</a></p>
-      </div>
-      <div class="adv-media">
-        <figure class="adv-photo"><img src="./assets/img/adv-welding.jpg" alt="Welder cutting steel with sparks flying" width="1600" height="1067"></figure>
-        <div class="adv-stats">
-          <div class="stat stat-orange"><span class="stat-plus" aria-hidden="true">+</span><p class="stat-num">1,000</p><p class="stat-label">Completed Projects</p></div>
-          <div class="stat stat-navy"><span class="stat-plus" aria-hidden="true">+</span><p class="stat-num">100</p><p class="stat-label">Official Partners</p></div>
-        </div>
+        <a href="./services" class="link-line">All 11 services</a>
       </div>
     </div>
   </section>
 
-  <section class="relations concrete">
+  <section class="relations">
     <div class="wrap">
-      <p class="rel-kicker">Global Relationships</p>
-      <h2 class="big-title">Hands Together</h2>
+      <p class="kicker">Global relationships</p>
+      <h2>Hands together</h2>
       <p class="rel-sub">Approved contractor with Dubai's government authorities and master developers.</p>
     </div>
     <div class="marquee" aria-label="Approving authorities">
@@ -136,10 +146,11 @@
     </div>
   </section>
 
-  <section class="proud concrete">
+  <section class="proud">
     <div class="wrap">
-      <h2 class="proud-title">Certified</h2>
-      <p class="rel-sub">Certified management systems behind every project we deliver.</p>
+      <p class="kicker">Management systems</p>
+      <h2>Certified</h2>
+      <p class="rel-sub">Certified quality and safety systems behind every project we deliver.</p>
       <ul class="cert-row">
       <li class="cert">
         <svg class="seal" viewBox="0 0 200 200" role="img" aria-label="ISO 9001:2015 QUALITY certified">

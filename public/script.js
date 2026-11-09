@@ -80,56 +80,6 @@ if (track) {
   [...track.children].forEach(li => { const c = li.cloneNode(true); c.setAttribute('aria-hidden', 'true'); track.appendChild(c); });
 }
 
-/* ---------- Home: 3D project carousel ---------- */
-const cf = $('[data-coverflow]');
-if (cf) {
-  const slides = $$('.cf-slide', cf);
-  const n = slides.length;
-  let cur = 0, timer = null;
-  const wrap = (i) => ((i % n) + n) % n;
-
-  const layout = () => {
-    const w = slides[0].offsetWidth;
-    slides.forEach((s, i) => {
-      let d = i - cur;
-      if (d > n / 2) d -= n;
-      if (d < -n / 2) d += n;
-      const a = Math.abs(d);
-      const x = Math.sign(d) * (a === 0 ? 0 : w * 0.42 + (a - 1) * w * 0.26);
-      s.style.transform = `translate(-50%, -50%) translateX(${x}px) translateZ(${-a * 160}px) rotateY(${-Math.sign(d) * Math.min(a, 1) * 38}deg)`;
-      s.style.zIndex = 50 - a;
-      s.style.opacity = a > 2 ? 0 : 1;
-      s.style.filter = a ? `brightness(${1 - Math.min(a, 2) * 0.22})` : 'none';
-      s.style.pointerEvents = a > 2 ? 'none' : 'auto';
-      s.classList.toggle('is-active', a === 0);
-      s.setAttribute('aria-hidden', a !== 0);
-    });
-  };
-  const go = (i) => { cur = wrap(i); layout(); };
-  const play = () => { if (!reduceMotion) { stop(); timer = setInterval(() => go(cur + 1), 4500); } };
-  const stop = () => clearInterval(timer);
-
-  $('.cf-prev', cf).addEventListener('click', () => go(cur - 1));
-  $('.cf-next', cf).addEventListener('click', () => go(cur + 1));
-  slides.forEach((s, i) => s.addEventListener('click', () => go(i)));
-  cf.addEventListener('keydown', e => {
-    if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1); }
-    if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1); }
-  });
-  // Swipe
-  let sx = null;
-  cf.addEventListener('pointerdown', e => { sx = e.clientX; });
-  cf.addEventListener('pointerup', e => {
-    if (sx === null) return;
-    const dx = e.clientX - sx; sx = null;
-    if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1));
-  });
-  ['mouseenter', 'focusin'].forEach(ev => cf.addEventListener(ev, stop));
-  ['mouseleave', 'focusout'].forEach(ev => cf.addEventListener(ev, play));
-  window.addEventListener('resize', layout);
-  layout(); play();
-}
-
 /* ---------- Services page ---------- */
 const grid = $('#serviceGrid');
 if (grid) {

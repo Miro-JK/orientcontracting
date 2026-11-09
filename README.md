@@ -5,7 +5,7 @@ Static multi-page site for Orient Palace Contracting & Building Maintenance LLC.
 ## Layout
 
 - `public/` – **everything that goes on the server** (upload the contents of this folder to `public_html`)
-  - `index.html` – Home: hero with project photos, introduction, 3D project carousel, advantages + main service links, project/partner counters, "Hands Together" authorities, certification seals
+  - `index.html` – Home: full-screen photo hero, dark intro, three full-width project panels, services and stats split row, "Hands Together" authorities, certification seals. Layout and type follow the Emaar / Binghatti references (serif headings, tracked uppercase labels, outlined buttons, floating call / WhatsApp / email bar)
   - `about.html` – Introduction, mission & vision, values, CEO message, certifications
   - `services.html` – 11 services; click a card for full scope (deep link: `/services#masonry`)
   - `projects.html` – Completed projects with filters and lightbox
