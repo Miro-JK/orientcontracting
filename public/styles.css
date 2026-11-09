@@ -111,10 +111,10 @@ body:has(main > section:first-child:is(.hero, .page-banner)) .site-header:not(.s
 
 /* ---------- Home: 3D project carousel ---------- */
 .showcase { padding: clamp(1rem, 3vw, 2rem) 0 clamp(3rem, 6vw, 4.5rem); overflow: hidden; }
-.coverflow { position: relative; height: clamp(240px, 34vw, 360px); perspective: 1400px; outline: none; touch-action: pan-y; user-select: none; }
+.coverflow { position: relative; height: clamp(240px, 42vw, 440px); perspective: 1400px; outline: none; touch-action: pan-y; user-select: none; }
 .coverflow:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
 .cf-track { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; transform-style: preserve-3d; }
-.cf-slide { position: absolute; left: 50%; top: 50%; width: clamp(220px, 38vw, 480px); aspect-ratio: 3/2; margin: 0; transform-origin: center; transition: transform .6s cubic-bezier(.22,.8,.24,1), opacity .6s ease, filter .6s ease; cursor: pointer; box-shadow: 0 24px 50px rgba(17,24,56,.28); background: var(--navy-deep); }
+.cf-slide { position: absolute; left: 50%; top: 50%; width: clamp(220px, 46vw, 620px); aspect-ratio: 3/2; margin: 0; transform-origin: center; transition: transform .6s cubic-bezier(.22,.8,.24,1), opacity .6s ease, filter .6s ease; cursor: pointer; box-shadow: 0 24px 50px rgba(17,24,56,.28); background: var(--navy-deep); }
 .cf-slide img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; -webkit-user-drag: none; }
 .cf-slide span { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.2rem 1.1rem .85rem; background: linear-gradient(transparent, rgba(11,16,41,.85)); color: #fff; font-family: var(--display); font-weight: 700; font-size: clamp(1rem, 1.6vw, 1.3rem); letter-spacing: .02em; text-align: left; opacity: 0; transition: opacity .4s ease; }
 .cf-slide.is-active { cursor: default; }
