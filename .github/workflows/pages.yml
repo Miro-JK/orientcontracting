@@ -38,9 +38,17 @@ jobs:
       - name: Cache-bust CSS and JS links
         run: |
           v="${GITHUB_SHA::7}"
-          sed -i -E "s#(href|src)=\"\./(styles\.css|script\.js)\"#\1=\"./\2?v=$v\"#g" public/*.html
+          sed -i -E "s#(href|src)=\"(\.?/)(styles\.css|script\.js)\"#\1=\"\2\3?v=$v\"#g" public/*.html
           grep -c "?v=$v" public/*.html
-      - uses: actions/configure-pages@v6
+      - id: pages
+        uses: actions/configure-pages@v6
+      # 404.html is shown at any address, so its links start at the site root ("/about").
+      # On GitHub Pages the site lives under /<repo>, so add that prefix here.
+      - name: Point 404 page links at the Pages subfolder
+        run: |
+          base="${{ steps.pages.outputs.base_path }}"
+          sed -i -E "s#(href|src)=\"/#\1=\"$base/#g" public/404.html
+          grep -o "href=\"$base/[^\"]*\"" public/404.html | head -3
       - uses: actions/upload-pages-artifact@v5
         with:
           path: public

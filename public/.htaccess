@@ -5,6 +5,7 @@ Options -Indexes -MultiViews
 DirectoryIndex index.html
 ErrorDocument 404 /404.html
 ErrorDocument 403 /404.html
+ErrorDocument 410 /404.html
 AddDefaultCharset UTF-8
 
 <IfModule mod_rewrite.c>
@@ -19,22 +20,39 @@ AddDefaultCharset UTF-8
   RewriteCond %{REQUEST_URI} !^/\.well-known/
   RewriteRule (^|/)\. - [F]
 
-  # 3. Old WordPress paths that bots probe: answer "gone" without touching anything
-  RewriteRule ^(wp-admin|wp-login\.php|wp-content|wp-includes|xmlrpc\.php) - [G,L]
+  # 3. Static site with no forms: only reading is allowed
+  RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$
+  RewriteRule ^ - [F]
 
-  # 4. /index or /index.html -> /
+  # 4. WordPress is gone: its paths, any PHP file and feeds answer "410 Gone", so bots
+  #    and Google stop asking. Also drops the spam pages that were injected into WordPress.
+  RewriteRule ^(wp-[^/]*|xmlrpc\.php)(/|$) - [G,L]
+  RewriteRule \.php$ - [G,L]
+  RewriteRule (^|/)feed/?$ - [G,L]
+  RewriteRule ^(olimp-kazino[^/]*|sc-helper|ppp)/?$ - [G,L]
+  RewriteCond %{QUERY_STRING} (^|&)(p|page_id|s|author)= [NC]
+  RewriteRule ^$ /? [R=301,L]
+
+  # 5. Old WordPress page addresses -> matching new pages (keeps Google rankings and old links)
+  RewriteRule ^(home|homepage|main-page|welcome(-[0-9]+)?|3d-slide-page)/?$ / [R=301,L]
+  RewriteRule ^(about-us(-[0-9]+)?|introduction|our-story|our-values|mission-and-vision|ceo-message)/?$ /about [R=301,L]
+  RewriteRule ^(building-contracting|carpentry-joinery-services|ceiling-services|electrical-serives|flooring-services|masonry-services|painting-polishing-cleaning-services|partition-services|plumbing-sanitary-services|roofing-warehouse-contracting|water-proofing-services)/?$ /services [R=301,L]
+  RewriteRule ^(complete-projects|running-projects|future-projects|project-videos)/?$ /projects [R=301,L]
+  RewriteRule ^(contact-us|quotaion)/?$ /contact [R=301,L]
+
+  # 6. /index or /index.html -> /
   RewriteCond %{THE_REQUEST} \s/+index(\.html)?[\s?]
   RewriteRule ^ / [R=301,L]
 
-  # 5. /about.html -> /about  (keeps old links and bookmarks working)
+  # 7. /about.html -> /about  (keeps old links and bookmarks working)
   RewriteCond %{THE_REQUEST} \s/+([^\s?]+?)\.html[\s?]
   RewriteRule ^ /%1 [R=301,L]
 
-  # 6. /about/ -> /about
+  # 8. /about/ -> /about
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^(.+)/$ /$1 [R=301,L]
 
-  # 7. Serve /about from about.html
+  # 9. Serve /about from about.html
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{DOCUMENT_ROOT}/$1.html -f
@@ -53,7 +71,9 @@ AddDefaultCharset UTF-8
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()"
   Header always set Strict-Transport-Security "max-age=31536000"
   Header always set Cross-Origin-Opener-Policy "same-origin"
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://www.google.com https://maps.google.com; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'self'; object-src 'none'; upgrade-insecure-requests"
+  Header always set Cross-Origin-Resource-Policy "same-origin"
+  Header always set X-Permitted-Cross-Domain-Policies "none"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://www.google.com https://maps.google.com; connect-src 'none'; form-action 'none'; base-uri 'self'; frame-ancestors 'self'; object-src 'none'; upgrade-insecure-requests"
   Header always unset X-Powered-By
   Header unset X-Powered-By
 

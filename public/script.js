@@ -74,33 +74,6 @@ const onScroll = () => header && header.classList.toggle('scrolled', window.scro
 window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 $$('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
 
-/* ---------- Shared: reveal on scroll ---------- */
-const io = 'IntersectionObserver' in window && !reduceMotion
-  ? new IntersectionObserver((entries) => entries.forEach(en => {
-      if (!en.isIntersecting) return;
-      en.target.classList.add('in');
-      if (en.target.dataset.count !== undefined) countUp(en.target);
-      io.unobserve(en.target);
-    }), { threshold: 0.2, rootMargin: '0px 0px -40px 0px' })
-  : null;
-const watch = (el) => io ? io.observe(el) : el.classList.add('in');
-// Bar widths come from data-v rather than inline styles, so the CSP can block inline styles.
-$$('.bar-fill[data-v]').forEach(el => el.style.setProperty('--v', Math.min(100, Math.max(0, +el.dataset.v)) + '%'));
-$$('.reveal, .bars').forEach(watch);
-
-/* ---------- Home: counters ---------- */
-function countUp(el) {
-  const target = +el.dataset.count, dur = 1800, t0 = performance.now();
-  const tick = (t) => {
-    const p = Math.min(1, (t - t0) / dur), eased = 1 - Math.pow(1 - p, 3);
-    el.textContent = Math.round(target * eased).toLocaleString('en-US');
-    if (p < 1) requestAnimationFrame(tick);
-  };
-  el.textContent = '0';
-  requestAnimationFrame(tick);
-}
-$$('[data-count]').forEach(watch);
-
 /* ---------- Home: authority marquee (duplicate items for a seamless loop) ---------- */
 const track = $('.marquee-track');
 if (track) {
@@ -170,7 +143,7 @@ if (grid) {
         <span class="svc-more">View scope <span aria-hidden="true">&rarr;</span></span>
       </span>
     </button>`).join('') + `
-    <div class="svc-cta"><div><h3>Need more than one trade?</h3><p>We handle construction, civil maintenance and MEP under one roof, so one team can manage the whole job.</p></div><a href="./contact?service=${encodeURIComponent('Other / multiple services')}#quote" class="btn">Get a combined quote</a></div>`;
+    <div class="svc-cta"><div><h3>Need more than one trade?</h3><p>We handle construction, civil maintenance and MEP under one roof, so one team can manage the whole job.</p></div><a href="./contact#quote" class="btn">Get a combined quote</a></div>`;
 
   const dlg = $('#svcDialog');
   const open = (i) => {
@@ -180,7 +153,7 @@ if (grid) {
     $('#dlgTitle').textContent = s.title;
     $('#dlgText').textContent = s.text;
     $('#dlgList').innerHTML = s.list.map(x => `<li>${esc(x)}</li>`).join('');
-    $('#dlgQuote').href = `./contact?service=${encodeURIComponent(s.title)}#quote`;
+    $('#dlgQuote').href = `mailto:info@orientcontracting.com?subject=${encodeURIComponent('Quote request: ' + s.title)}`;
     dlg.showModal();
   };
   grid.addEventListener('click', e => { const b = e.target.closest('[data-svc]'); if (b) open(+b.dataset.svc); });
@@ -222,25 +195,3 @@ function closeOnBackdrop(d) {
   d.addEventListener('click', e => { if (e.target === d || e.target.closest('[data-close]')) d.close(); });
 }
 
-/* ---------- Contact page ---------- */
-const form = $('#quote');
-if (form) {
-  const sel = $('#serviceSelect');
-  SERVICES.forEach(s => sel.insertAdjacentHTML('beforeend', `<option>${esc(s.title)}</option>`));
-  sel.insertAdjacentHTML('beforeend', '<option>Other / multiple services</option>');
-  const pre = new URLSearchParams(location.search).get('service');
-  if (pre) sel.value = pre;
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const msg = $('#formMsg');
-    const name = form.elements.name.value.trim(), phone = form.elements.phone.value.trim();
-    if (!name || !phone) { msg.textContent = 'Please add your name and phone number.'; msg.className = 'form-msg err'; return; }
-    // No backend yet: hand the request to the visitor's email app, addressed to the office.
-    const body = [`Name: ${name}`, `Phone: ${phone}`, `Email: ${form.elements.email.value.trim()}`,
-      `Service: ${sel.value || 'Not specified'}`, '', form.elements.details.value.trim()].join('\n');
-    location.href = `mailto:info@orientcontracting.com?subject=${encodeURIComponent('Quote request: ' + (sel.value || 'General'))}&body=${encodeURIComponent(body)}`;
-    msg.textContent = `Thanks, ${name.split(' ')[0]}. Your email app should open with the request ready to send. You can also call us on +971 50 118 6625.`;
-    msg.className = 'form-msg ok';
-  });
-}
