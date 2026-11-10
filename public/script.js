@@ -79,6 +79,16 @@ const track = $('.marquee-track');
 if (track) {
   [...track.children].forEach(li => { const c = li.cloneNode(true); c.setAttribute('aria-hidden', 'true'); track.appendChild(c); });
 }
+// Moving content needs a way to stop it (WCAG 2.2.2): a button, plus pausing while a keyboard user is inside
+const mq = $('.marquee'), mqBtn = $('.marquee-toggle');
+if (mq && mqBtn) {
+  mqBtn.addEventListener('click', () => {
+    const paused = mq.classList.toggle('is-paused');
+    mqBtn.setAttribute('aria-pressed', paused);
+    mqBtn.setAttribute('aria-label', paused ? 'Play scrolling authorities' : 'Pause scrolling authorities');
+    mqBtn.querySelector('span').textContent = paused ? 'Play' : 'Pause';
+  });
+}
 
 /* ---------- Services page ---------- */
 const grid = $('#serviceGrid');
